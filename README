@@ -1,3 +1,9 @@
+This game is a simple game inspired by "Gorillas" distributed with MS-DOS.
+The first game of the series (HE Training Grounds) was written in Visual Basic 6, just by using Windows forms. I decided to recreate my game using openGL, as it seemed a good starting point to actually learn openGL.
+
+This game is licenced under GNU General Public Licence version 3 or later.
+
+
 --> 0.1 : 1.00-alpha1 codename Turtle
 
 initial version, very simple collision detection, no explosions, only way to
@@ -29,6 +35,7 @@ added rain
 
 
 TODO:
+--- This sections exists as a reminder to myself, and not as a list of definite future features, so expect it to be a little illegible ---
 
 --> next release: (0.5 aka 1.00-beta1)
 + move collision detection to dud (mandatory!)
@@ -50,5 +57,4 @@ TODO:
 - reintroduce openAL, add explosion and thunder sound, add voice of people saying bad words :)
 - make the particle engine even more generic (handle sandstorm)
 - look if the transition between levels can be more smooth (and not more Kaprekar :P)
-- make the display engine more generic (handle layers)
 - create a more cross-platform and clean code for online multiplaying (boost::asio?) by following version 0xCAFEBABE
