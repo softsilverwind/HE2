@@ -1,0 +1,54 @@
+--> 0.1 : 1.00-alpha1 codename Turtle
+
+initial version, very simple collision detection, no explosions, only way to
+win is to hit the enemy directly.
+
+--> 0.2 : 1.00-alpha2 codename Firebug
+
+added an explosion effect using a simple particle engine.
+
+--> 0.3 : 1.00-alpha3 codename Tzitziki
+
+added an explosion sound using openAL.
+
+--> 0.4 : 1.00-alpha4 codename Cross
+
+deleted openAL code as it was not clean (and also failed on Microsoft Windows)
+cross-compiled for Microsoft Windows
+
+--> 0.41 : 1.00-alpha4-1
+
+changed the particle engine a bit
+
+--> 0.45 : 1.00-alpha5 codename Re-F*ck-Tor
+
+performed major refactoring on the game engine and classes
+fitted a new display engine to all the animations
+fitted a new particle engine
+added rain
+
+
+TODO:
+
+--> next release: (0.5 aka 1.00-beta1)
++ move collision detection to dud (mandatory!)
++ should point laser when clicking (easy :) )
++ port HE2 to Starlia
+-+ main menu
+-+ render the score/angle/velocity inline in the window, but not with a label
++ 1st public release!
+- more realistic explosions depending on velocity
+
+--> someday (but before 1.00 final is released):
++ polish the particle engine
++ better collision detection, using a two point linear interpolation scheme, handled by D_engine (or Ph_engine :P)
+- HE1 options - Blood (particles), Ground indentation, Wind (Global Variable?)
+- people dismemberment
+- kill by hitting ground beside
+
+--> someday (probably after 1.00 is released, but not sure)
+- reintroduce openAL, add explosion and thunder sound, add voice of people saying bad words :)
+- make the particle engine even more generic (handle sandstorm)
+- look if the transition between levels can be more smooth (and not more Kaprekar :P)
+- make the display engine more generic (handle layers)
+- create a more cross-platform and clean code for online multiplaying (boost::asio?) by following version 0xCAFEBABE
