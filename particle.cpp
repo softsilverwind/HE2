@@ -27,7 +27,7 @@ bool Particle::recalc()
 	if (life != INT_MAX)
 		--life;
 
-	if (position.y < ground->getYofX(position.x))
+	if (position.x < 0 || position.x >= SIZEX || position.y < ground->getYofX(position.x))
 		life = 0;
 
 	return (life > 0);
