@@ -38,13 +38,13 @@ TODO:
 --- This sections exists as a reminder to myself, and not as a list of definite future features, so expect it to be a little illegible ---
 
 --> next release: (0.5 aka 1.00-beta1)
-+ move collision detection to dud (mandatory!)
-+ should point laser when clicking (easy :) )
-+ port HE2 to Starlia
--+ main menu
--+ render the score/angle/velocity inline in the window, but not with a label
-+ 1st public release!
-- more realistic explosions depending on velocity
++ move collision detection to dud (mandatory!) (DONE!)
++ should point laser when clicking (easy :) ) (DONE!)
++ port HE2 to Starlia (almost theeereeee!)
+-+ main menu ( :( )
+-+ render the score/angle/velocity inline in the window, but not with a label ( :( )
++ 1st public release! ( :D )
+- more realistic explosions depending on velocity ( -.- )
 
 --> someday (but before 1.00 final is released):
 + polish the particle engine
