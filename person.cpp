@@ -1,15 +1,10 @@
 #include <GL/glut.h>
-#include "BR_engine.h"
-#include "M_engine.h"
+#include <starlia.h>
 #include "ground.h"
 #include "person.h"
 #include "dud.h"
 
-using namespace BR_engine;
-using namespace M_engine;
-
-namespace HE2
-{
+using namespace Starlia;
 
 Person::Person(double x, Color3d color, Ground *ground)
 	: position(x, ground->getYofX(x) + 20),
@@ -23,12 +18,15 @@ Person::Person(double x, Color3d color, Ground *ground)
 	weapon(Coordinate2d(position.x, position.y - 10), Coordinate2d(position.x, position.y + 10), color),
 	laser(Coordinate2d(position.x, position.y - 10), Coordinate2d(position.x, position.y - 10), Color3d(0,1,0))
 {
-	TAG("person");
 }
 
 void Person::draw()
 {
-	Circle::draw(position, radius, color);
+	glPushMatrix();
+	glTranslated(position.x, position.y, 0);
+	glScaled(radius, radius, 1);
+	Circle::draw(color);
+	glPopMatrix();
 
 	Line::draw(body.start, body.end, color);
 	Line::draw(rhand.start, rhand.end, color);
@@ -67,6 +65,4 @@ void Person::closeLaser()
 bool Person::collides(Coordinate2d pos)
 {
 	return (pos.y < position.y + 5 && pos.y > min(rleg.end.y, lleg.end.y) && pos.x < rleg.end.x + 5 && pos.x > lleg.end.x - 5);
-}
-
 }

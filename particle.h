@@ -1,10 +1,9 @@
 #ifndef __PARTICLE_H__
 #define __PARTICLE_H__
 
-#include "structs.h"
+#include <starlia.h>
 
-namespace HE2
-{
+using namespace Starlia;
 
 class Particle
 {
@@ -24,7 +23,5 @@ class Particle
 		bool recalc();
 		void draw();
 };
-
-}
 
 #endif /* __PARTICLE_H__ */

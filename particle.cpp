@@ -1,21 +1,18 @@
 #include <GL/glut.h>
 #include <climits>
+#include <starlia.h>
 #include "globals.h"
 #include "particle.h"
 #include "p_engine.h"
-#include "M_engine.h"
 
 #define SIZE 2
 
-using namespace M_engine;
-
-namespace HE2
-{
+using namespace Starlia;
 
 Particle::Particle(Coordinate2d position, Coordinate2d velocity, Coordinate2d acceleration, Color3d color, int life)
 	: position(position), velocity(velocity), acceleration(acceleration), color(color), life(life), start(position)
 {
-	hue = Random::randomdUp(1,4);
+	hue = randomdUp(1,4);
 }
 
 bool Particle::recalc()
@@ -27,7 +24,7 @@ bool Particle::recalc()
 	if (life != INT_MAX)
 		--life;
 
-	if (position.y < ground->getYofX(position.x))
+	if (position.x < 0 || position.x >= SIZEX || position.y < ground->getYofX(position.x))
 		life = 0;
 
 	return (life > 0);
@@ -47,6 +44,4 @@ void Particle::draw()
 	glEnd();
 
 	glPopAttrib();
-}
-
 }

@@ -3,14 +3,11 @@
 
 #include <vector>
 #include <list>
+#include <starlia.h>
 #include "structs.h"
 #include "particle.h"
-#include "d_engine.h"
 
-namespace HE2
-{
-
-class P_engine : public Drawable
+class P_engine : public StarObject
 {
 	public:
 		typedef enum
@@ -32,10 +29,10 @@ class P_engine : public Drawable
 		void draw();
 };
 
-class Rain : public Drawable
+class Rain : public StarObject
 {
 	private:
-		class Thunder : public Drawable
+		class Thunder : public StarObject
 		{
 			private:
 				vector<Coordinate2d> vertices;
@@ -58,7 +55,5 @@ class Rain : public Drawable
 		bool recalc();
 		void draw();
 };
-
-}
 
 #endif /* __P_ENGINE_H__ */
