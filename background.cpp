@@ -1,9 +1,7 @@
 #include <GL/glut.h>
-#include "structs.h"
+#include <starlia.h>
+#include "globals.h"
 #include "background.h"
-
-namespace HE2
-{
 
 Background::Background(Color3d colorh, Color3d colorl)
 	: colorh(colorh), colorl(colorl)
@@ -30,6 +28,4 @@ void Background::draw()
 	glEnd();
 
 	glPopAttrib();
-}
-
 }

@@ -1,9 +1,6 @@
 #ifndef __STRUCTS_H__
 #define __STRUCTS_H__
 
-#define SIZEX 800
-#define SIZEY 600
-
 typedef struct Coordinate2d
 {
 	double x,y;

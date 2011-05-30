@@ -1,15 +1,12 @@
 #ifndef __PERSON_H__
 #define __PERSON_H__
 
+#include <starlia.h>
 #include "structs.h"
 #include "ground.h"
 #include "dud.h"
-#include "d_engine.h"
 
-namespace HE2
-{
-
-class Person : public Drawable
+class Person : public StarObject
 {
 	private:
 		typedef struct BodyPart
@@ -39,7 +36,5 @@ class Person : public Drawable
 
 		void draw();
 };
-
-}
 
 #endif

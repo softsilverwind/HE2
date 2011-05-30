@@ -1,16 +1,14 @@
 #ifndef __GROUND_H__
 #define __GROUND_H__
 
-#include "structs.h"
-#include "d_engine.h"
+#include <starlia.h>
 
 #define GR_SIZE (257)
 #define GR_2 (GR_SIZE / 2)
 
-namespace HE2
-{
+using namespace Starlia;
 
-class Ground : public Drawable
+class Ground : public StarObject
 {
 	private:
 		double points[GR_SIZE]; 	// the ground set points
@@ -23,7 +21,5 @@ class Ground : public Drawable
 		void indent(double x);		// intents the ground in x
 		bool collides(Coordinate2d position);
 };
-
-}
 
 #endif

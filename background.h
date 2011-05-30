@@ -1,13 +1,11 @@
 #ifndef __BACKGROUND_H__
 #define __BACKGROUND_H__
 
-#include "structs.h"
-#include "d_engine.h"
+#include <starlia.h>
 
-namespace HE2
-{
+using namespace Starlia;
 
-class Background : public Drawable
+class Background : public StarObject
 {
 	private:
 		Color3d colorh, colorl;
@@ -17,7 +15,5 @@ class Background : public Drawable
 
 		void draw();
 };
-
-}
 
 #endif

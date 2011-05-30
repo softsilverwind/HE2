@@ -1,23 +1,19 @@
 #include <GL/glut.h>
+#include <starlia.h>
 #include "ground.h"
-#include "M_engine.h"
-#include "structs.h"
+#include "globals.h"
 
-using namespace M_engine;
-
-namespace HE2
-{
+using namespace Starlia;
 
 Ground::Ground(Color3d color)
 	: color(color)
 {
-	TAG("ground");
 	points[GR_2] = 100;
 
 	for (int i = 1; i <= GR_2; ++i)
 	{
-		points[GR_2 - i] = points[GR_2 - i + 1] + Random::randomi(-1,1);
-		points[GR_2 + i] = points[GR_2 + i - 1] + Random::randomi(-1,1);
+		points[GR_2 - i] = points[GR_2 - i + 1] + randomi(-1,1);
+		points[GR_2 + i] = points[GR_2 + i - 1] + randomi(-1,1);
 	}
 }
 
@@ -58,6 +54,4 @@ void Ground::indent(double x)
 bool Ground::collides(Coordinate2d position)
 {
 	return position.y < getYofX(position.x);
-}
-
 }

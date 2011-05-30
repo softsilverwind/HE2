@@ -1,13 +1,11 @@
 #ifndef __DUD_H__
 #define __DUD_H__
 
-#include "structs.h"
-#include "d_engine.h"
+#include <starlia.h>
 
-namespace HE2
-{
+using namespace Starlia;
 
-class Dud : public Drawable
+class Dud : public StarObject
 {
 	private:
 		Coordinate2d position;
@@ -17,13 +15,11 @@ class Dud : public Drawable
 
 	public:
 		Dud(Coordinate2d position, Coordinate2d velocity, double radius, Color3d color);
-		Dud(Coordinate2d position, Coordinate2dPolar velocity, double radius, Color3d color);
+		Dud(Coordinate2d position, Coordinate2dpolar velocity, double radius, Color3d color);
 
 		Coordinate2d getPosition();
 		bool recalc();
 		void draw();
 };
-
-}
 
 #endif /* __DUD_H__ */
