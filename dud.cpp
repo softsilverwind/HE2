@@ -40,18 +40,18 @@ bool Dud::recalc()
 	}
 	else if (ground->collides(position))
 	{
-		backLayer->registerObject(new P_engine(Coordinate2d(position.x, ground->getYofX(position.x)),PARTICLES,TIME,SPEED,Color3d(1,0.3,0),P_engine::CHAMPAGNE), changePlayer);
+		layer[1]->registerObject(new P_engine(Coordinate2d(position.x, ground->getYofX(position.x)),PARTICLES,TIME,SPEED,Color3d(1,0.3,0),P_engine::CHAMPAGNE), changePlayer);
 		return false;
 	}
 	else if (player[0]->collides(position))
 	{
-		backLayer->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
+		layer[1]->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
 		++score[1];
 		return false;
 	}
 	else if (player[1]->collides(position))
 	{
-		backLayer->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
+		layer[1]->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
 		++score[0];
 		return false;
 	}
