@@ -23,7 +23,7 @@ Background *background;
 unsigned int score[2];
 unsigned int currPlayer;
 Ground *ground;
-StarLayer *layer[3];
+StarObjectLayer *layer[3];
 Person *player[2];
 bool firing;
 int xscale,yscale;
@@ -142,8 +142,31 @@ void init()
 	firing = false;
 }
 
-void glmain(int argc, char** argv)
+StarWidgetLayer *mainMenu;
+
+void myGoOn()
 {
+	StarCore::unregisterLayer(mainMenu);
+	delete mainMenu;
+
+	resize(800, 600);
+	glutReshapeFunc(resize);
+	glutPassiveMotionFunc(mouse);
+	glutMotionFunc(mouse);
+	glutMouseFunc(click);
+
+	layer[0] = new StarObjectLayer(Coordinate2d(800, 600));
+	layer[1] = new StarObjectLayer(Coordinate2d(800, 600));
+	layer[2] = new StarObjectLayer(Coordinate2d(800, 600));
+	StarCore::registerLayerBackground(layer[0]);
+	StarCore::registerLayerBackground(layer[1]);
+	StarCore::registerLayerBackground(layer[2]);
+	init();
+}
+
+void myExit()
+{
+	exit(0);
 }
 
 int main(int argc, char** argv)
@@ -152,20 +175,17 @@ int main(int argc, char** argv)
 	puts("THIS IS STARLIAAAAAAAAAAAAA!");
 	puts("THIS IS SEGFAUUUUUUUUUUUULT!");
 
-	layer[0] = new StarLayer(Coordinate2d(800, 600));
-	layer[1] = new StarLayer(Coordinate2d(800, 600));
-	layer[2] = new StarLayer(Coordinate2d(800, 600));
-	StarCore::registerLayerBackground(layer[0]);
-	StarCore::registerLayerBackground(layer[1]);
-	StarCore::registerLayerBackground(layer[2]);
-	init();
+	mainMenu = new StarWidgetLayer(Coordinate2d(100, 100));
+
+	StarCore::registerLayerForeground(mainMenu);
+	mainMenu->registerObject(new StarLabel("Welcome to the awesome menu", Coordinate2d(20, 90), Coordinate2d(80, 80), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
+        mainMenu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,0,1), -1, StarLabel::STATIC, StarLabel::CENTER, myGoOn));
+	mainMenu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 40), Coordinate2d(80, 30), 4, Color3d(1,0,0), -1, StarLabel::STATIC, StarLabel::CENTER, myExit));
+	mainMenu->registerObject(new StarLabel("DO NOT RESIZE BEFORE HITTING PLAY", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
+
 
 	StarCore::init("HE Training Grounds 2 not yet v1.00-beta1", SIZEX, SIZEY);
 
-	glutPassiveMotionFunc(mouse);
-	glutMotionFunc(mouse);
-	glutMouseFunc(click);
-	glutReshapeFunc(resize);
 
 	StarCore::loop();
 

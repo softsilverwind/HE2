@@ -14,7 +14,7 @@
 
 
 extern Ground *ground;
-extern StarLayer *layer[3];
+extern StarObjectLayer *layer[3];
 extern Ground *ground;
 extern Person *player[2];
 extern unsigned int score[2];
