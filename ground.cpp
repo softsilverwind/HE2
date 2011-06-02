@@ -29,7 +29,6 @@ double Ground::getYofX(double x)
 
 void Ground::draw()
 {
-	glPushAttrib(GL_CURRENT_BIT);
 	glColor3f(color.r,color.g,color.b);
 
 	glBegin(GL_POLYGON);
@@ -42,8 +41,6 @@ void Ground::draw()
 	glVertex2d(0,0);
 
 	glEnd();
-
-	glPopAttrib();
 }
 
 void Ground::indent(double x)

@@ -43,8 +43,12 @@ void Person::pointWeapon(double x, double y)
 	laser.end.y = y;
 
 	angle = angleOf(laser.start, laser.end);
-	velocity = length(laser.start, laser.end) / 4.2;
+	velocity = length(laser.start, laser.end);
+
+	velocity /= 4.2;
 	velocity = (velocity > 100) ? 100 : velocity;
+	laser.end = polarToXY(velocity * 4.2, angle) + weapon.start;
+
 
 	weapon.end = polarToXY(20, angle) + weapon.start;
 

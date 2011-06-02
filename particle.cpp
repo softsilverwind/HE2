@@ -32,8 +32,6 @@ bool Particle::recalc()
 
 void Particle::draw()
 {
-	glPushAttrib(GL_CURRENT_BIT);
-
 	glColor3d(color.r * hue, color.g * hue, color.b * hue);
 
 	glBegin(GL_TRIANGLE_FAN);
@@ -42,6 +40,4 @@ void Particle::draw()
 	glVertex2d(position.x, position.y - SIZE);
 	glVertex2d(position.x + SIZE, position.y);
 	glEnd();
-
-	glPopAttrib();
 }

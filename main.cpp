@@ -1,6 +1,7 @@
-#include <GL/glut.h>
+#include <iostream>
+#include <sstream>
+#include <cstdlib>
 #include <starlia.h>
-#include <cstdio>
 #include "structs.h"
 #include "background.h"
 #include "ground.h"
@@ -9,6 +10,7 @@
 #include "p_engine.h"
 #include "globals.h"
 
+using namespace std;
 using namespace Starlia;
 
 typedef enum
@@ -24,7 +26,7 @@ unsigned int score[2];
 unsigned int currPlayer;
 Ground *ground;
 StarObjectLayer *layer[3];
-StarWidgetLayer *widgetLayer[2];
+StarWidgetLayer *canvas, *widgets, *menu;
 
 Person *player[2];
 bool firing;
@@ -32,6 +34,8 @@ bool iHasAKill = false;
 Rain *rain;
 
 unsigned int last_recalc;
+
+StarLabel *scoreLabel[2];
 
 void init();
 
@@ -44,7 +48,11 @@ void changePlayer()
 
 void printScore()
 {
-	printf("Player1 : %u - Player2 : %u\n", score[0], score[1]);
+	stringstream ss[2];
+       	ss[0] << score[0];
+       	ss[1] << score[1];
+	scoreLabel[0]->chText(string(ss[0].str()));
+	scoreLabel[1]->chText(string(ss[1].str()));
 }
 
 void reInit()
@@ -99,7 +107,7 @@ void init()
 			personCol = Color3d(0.5,0.5,0.5);
 			break;
 		default:
-			fputs("We should not have come here, heh", stderr);
+			cerr << "We should not have come here, heh" << endl;
 			exit(1);
 	}
 	background = new Background(backUp, backDown);
@@ -135,6 +143,16 @@ void click(Coordinate2d pos)
 	}
 }
 
+void myMenu(Coordinate2d pos)
+{
+	StarCore::registerLayerForeground(menu);
+}
+
+void myGoOn2(Coordinate2d pos)
+{
+	StarCore::unregisterLayer(menu);
+}
+
 void myExit(Coordinate2d pos)
 {
 	exit(0);
@@ -142,12 +160,23 @@ void myExit(Coordinate2d pos)
 
 void myGoOn(Coordinate2d pos)
 {
-	widgetLayer[0]->clearLayer();
-	widgetLayer[0]->registerObject(new StarWidget(Coordinate2d(0,100), Coordinate2d(100, 0), click, mouse));
-	widgetLayer[1] = new StarWidgetLayer(Coordinate2d(100, 100));
-	StarCore::registerLayerForeground(widgetLayer[1]);
-	widgetLayer[1]->registerObject(new StarLabel("EXIT", Coordinate2d(80, 10), Coordinate2d(100, 0), 4, Color3d(1,1,0), StarLabel::CENTER, myExit));
+	StarCore::unregisterLayer(menu);
+	menu->clearLayer();
+        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,1,0), StarLabel::CENTER, myGoOn2));
+	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(0,1,0), StarLabel::CENTER, myExit));
 
+	widgets = new StarWidgetLayer(Coordinate2d(100, 100));
+	canvas = new StarWidgetLayer(Coordinate2d(100, 100));
+	canvas->registerObject(new StarWidget(Coordinate2d(0,100), Coordinate2d(100, 0), click, mouse));
+	widgets->registerObject(new StarLabel("MENU", Coordinate2d(90, 4), Coordinate2d(100, 0), 3, Color3d(0,0,1), StarLabel::CENTER, myMenu));
+
+	widgets->registerObject(new StarLabel("Player 1:", Coordinate2d(2, 98), Coordinate2d(30, 94), 3, Color3d(0,1,0), StarLabel::RIGHT));
+	widgets->registerObject(new StarLabel("Player 2:", Coordinate2d(2, 94), Coordinate2d(30, 90), 3, Color3d(1,0,0), StarLabel::RIGHT));
+	widgets->registerObject(scoreLabel[0] = new StarLabel("0", Coordinate2d(32, 98), Coordinate2d(60, 94), 3, Color3d(0,1,0), StarLabel::LEFT));
+	widgets->registerObject(scoreLabel[1] = new StarLabel("0", Coordinate2d(32, 94), Coordinate2d(60, 90), 3, Color3d(1,0,0), StarLabel::LEFT));
+
+	StarCore::registerLayerForeground(canvas);
+	StarCore::registerLayerForeground(widgets);
 
 	layer[0] = new StarObjectLayer(Coordinate2d(800, 600));
 	layer[1] = new StarObjectLayer(Coordinate2d(800, 600));
@@ -160,19 +189,15 @@ void myGoOn(Coordinate2d pos)
 
 int main(int argc, char** argv)
 {
-	puts("HE Training grounds not yet 0.5 (not yet 1.00 beta1) codename \"You can't yet reach the stars\"");
-	puts("THIS IS STARLIAAAAAAAAAAAAA!");
-	puts("THIS IS SEGFAUUUUUUUUUUUULT!");
+	menu = new StarWidgetLayer(Coordinate2d(100, 100), true);
 
-	widgetLayer[0] = new StarWidgetLayer(Coordinate2d(100, 100));
-
-	StarCore::registerLayerForeground(widgetLayer[0]);
-	widgetLayer[0]->registerObject(new StarLabel("Welcome to the awesome menu", Coordinate2d(20, 90), Coordinate2d(80, 80), 4, Color3d(1,1,0), StarLabel::CENTER));
-        widgetLayer[0]->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,0,1), StarLabel::CENTER, myGoOn));
-	widgetLayer[0]->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(1,0,0), StarLabel::CENTER, myExit));
+	StarCore::registerLayerForeground(menu);
+	menu->registerObject(new StarLabel("Welcome to the HE Training Grounds", Coordinate2d(20, 90), Coordinate2d(80, 70), 4, Color3d(1,1,0), StarLabel::CENTER));
+        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,1,0), StarLabel::CENTER, myGoOn));
+	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(0,1,0), StarLabel::CENTER, myExit));
 
 
-	StarCore::init("HE Training Grounds 2 not yet v1.00-beta1", SIZEX, SIZEY);
+	StarCore::init("HE Training Grounds 2 v1.00-beta1", SIZEX, SIZEY);
 
 
 	StarCore::loop();

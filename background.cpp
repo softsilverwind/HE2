@@ -6,14 +6,12 @@
 Background::Background(Color3d colorh, Color3d colorl)
 	: colorh(colorh), colorl(colorl)
 {
-
 }
 
 void Background::draw()
 {
 	glClearColor(colorl.r, colorl.g, colorl.b, 0);
 	glClear(GL_COLOR_BUFFER_BIT);
-	glPushAttrib(GL_CURRENT_BIT);
 
 	glBegin(GL_POLYGON);
 
@@ -26,6 +24,4 @@ void Background::draw()
 	glVertex2d(0, SIZEY);
 
 	glEnd();
-
-	glPopAttrib();
 }
