@@ -24,9 +24,10 @@ unsigned int score[2];
 unsigned int currPlayer;
 Ground *ground;
 StarObjectLayer *layer[3];
+StarWidgetLayer *widgetLayer[2];
+
 Person *player[2];
 bool firing;
-int xscale,yscale;
 bool iHasAKill = false;
 Rain *rain;
 
@@ -60,35 +61,6 @@ void reInit()
 	layer[2]->unregisterObject(background);
 
 	init();
-}
-
-void resize(int width, int height)
-{
-	xscale = width;
-	yscale = height;
-	glViewport(0, 0, width, height);
-}
-
-void mouse(int x, int y)
-{
-	x *= ((double) SIZEX / xscale);
-	y *= ((double) SIZEY / yscale);
-	player[currPlayer]->pointWeapon(x,SIZEY - y);
-	glutPostRedisplay();
-}
-
-
-void click(int button, int state, int x, int y)
-{
-	x *= ((double) SIZEX / xscale);
-	y *= ((double) SIZEY / yscale);
-	player[currPlayer]->pointWeapon(x,SIZEY - y);
-
-	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && !firing)
-	{
-		layer[2]->registerObject(player[currPlayer]->fire());
-		firing = true;
-	}
 }
 
 void init()
@@ -142,18 +114,40 @@ void init()
 	firing = false;
 }
 
-StarWidgetLayer *mainMenu;
-
-void myGoOn()
+void mouse(Coordinate2d pos)
 {
-	StarCore::unregisterLayer(mainMenu);
-	delete mainMenu;
+	pos.x *= SIZEX;
+	pos.y *= SIZEY;
+	player[currPlayer]->pointWeapon(pos.x,SIZEY - pos.y);
+}
 
-	resize(800, 600);
-	glutReshapeFunc(resize);
-	glutPassiveMotionFunc(mouse);
-	glutMotionFunc(mouse);
-	glutMouseFunc(click);
+void click(Coordinate2d pos)
+{
+	pos.x *= SIZEX;
+	pos.y *= SIZEY;
+
+	player[currPlayer]->pointWeapon(pos.x,SIZEY - pos.y);
+
+	if (!firing)
+	{
+		layer[2]->registerObject(player[currPlayer]->fire());
+		firing = true;
+	}
+}
+
+void myExit(Coordinate2d pos)
+{
+	exit(0);
+}
+
+void myGoOn(Coordinate2d pos)
+{
+	widgetLayer[0]->clearLayer();
+	widgetLayer[0]->registerObject(new StarWidget(Coordinate2d(0,100), Coordinate2d(100, 0), click, mouse));
+	widgetLayer[1] = new StarWidgetLayer(Coordinate2d(100, 100));
+	StarCore::registerLayerForeground(widgetLayer[1]);
+	widgetLayer[1]->registerObject(new StarLabel("EXIT", Coordinate2d(80, 10), Coordinate2d(100, 0), 4, Color3d(1,1,0), StarLabel::CENTER, myExit));
+
 
 	layer[0] = new StarObjectLayer(Coordinate2d(800, 600));
 	layer[1] = new StarObjectLayer(Coordinate2d(800, 600));
@@ -164,24 +158,18 @@ void myGoOn()
 	init();
 }
 
-void myExit()
-{
-	exit(0);
-}
-
 int main(int argc, char** argv)
 {
 	puts("HE Training grounds not yet 0.5 (not yet 1.00 beta1) codename \"You can't yet reach the stars\"");
 	puts("THIS IS STARLIAAAAAAAAAAAAA!");
 	puts("THIS IS SEGFAUUUUUUUUUUUULT!");
 
-	mainMenu = new StarWidgetLayer(Coordinate2d(100, 100));
+	widgetLayer[0] = new StarWidgetLayer(Coordinate2d(100, 100));
 
-	StarCore::registerLayerForeground(mainMenu);
-	mainMenu->registerObject(new StarLabel("Welcome to the awesome menu", Coordinate2d(20, 90), Coordinate2d(80, 80), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
-        mainMenu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,0,1), -1, StarLabel::STATIC, StarLabel::CENTER, myGoOn));
-	mainMenu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 40), Coordinate2d(80, 30), 4, Color3d(1,0,0), -1, StarLabel::STATIC, StarLabel::CENTER, myExit));
-	mainMenu->registerObject(new StarLabel("DO NOT RESIZE BEFORE HITTING PLAY", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
+	StarCore::registerLayerForeground(widgetLayer[0]);
+	widgetLayer[0]->registerObject(new StarLabel("Welcome to the awesome menu", Coordinate2d(20, 90), Coordinate2d(80, 80), 4, Color3d(1,1,0), StarLabel::CENTER));
+        widgetLayer[0]->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,0,1), StarLabel::CENTER, myGoOn));
+	widgetLayer[0]->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(1,0,0), StarLabel::CENTER, myExit));
 
 
 	StarCore::init("HE Training Grounds 2 not yet v1.00-beta1", SIZEX, SIZEY);
