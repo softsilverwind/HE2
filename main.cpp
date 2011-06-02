@@ -23,7 +23,7 @@ Background *background;
 unsigned int score[2];
 unsigned int currPlayer;
 Ground *ground;
-StarLayer *backLayer, *frontLayer;
+StarObjectLayer *layer[3];
 Person *player[2];
 bool firing;
 int xscale,yscale;
@@ -51,12 +51,13 @@ void reInit()
 	printScore();
 	iHasAKill = false;
 
-	backLayer->unregisterObject(rain);
-	backLayer->unregisterObject(background);
-	frontLayer->unregisterObject(ground);
-	frontLayer->unregisterObject(player[0]);
-	frontLayer->unregisterObject(player[1]);
-	
+	layer[0]->unregisterObject(ground);
+	layer[0]->unregisterObject(player[0]);
+	layer[0]->unregisterObject(player[1]);
+	if (rain)
+		layer[1]->unregisterObject(rain);
+
+	layer[2]->unregisterObject(background);
 
 	init();
 }
@@ -85,7 +86,7 @@ void click(int button, int state, int x, int y)
 
 	if (button == GLUT_LEFT_BUTTON && state == GLUT_DOWN && !firing)
 	{
-		backLayer->registerObject(player[currPlayer]->fire());
+		layer[2]->registerObject(player[currPlayer]->fire());
 		firing = true;
 	}
 }
@@ -95,6 +96,7 @@ void init()
 	Color3d backUp, backDown, groundCol, personCol;
 
 	timeOfDay = (timeOfDayType) randomi(0,4);
+	rain = NULL;
 
 	switch (timeOfDay)
 	{
@@ -116,8 +118,8 @@ void init()
 			personCol = Color3d(0,0,0);
 			break;
 		case rainy:
-			rain = new Rain(Coordinate2d(0, SIZEY), Coordinate2d(SIZEX, 0), 100, 0.5, true);
-			backLayer->registerObject(rain, NULL, false, false);
+			rain = new Rain(Coordinate2d(0, SIZEY), Coordinate2d(SIZEX, 0), 100, 5, true);
+			layer[1]->registerObject(rain);
 			/* nobreak */
 		case night:
 			backDown = backUp = Color3d(0, 0, randomdDown(1,4));
@@ -132,16 +134,39 @@ void init()
 	ground = new Ground(groundCol);
 	player[0] = new Person(randomi(25,75),personCol,ground);
 	player[1] = new Person(randomi(725,775),personCol,ground);
-	backLayer->registerObject(background);
-	backLayer->registerObject(ground);
-	frontLayer->registerObject(player[0]);
-	frontLayer->registerObject(player[1]);
+	layer[2]->registerObject(background);
+	layer[0]->registerObject(ground);
+	layer[0]->registerObject(player[0]);
+	layer[0]->registerObject(player[1]);
 	currPlayer = randomi(0,1);
 	firing = false;
 }
 
-void glmain(int argc, char** argv)
+StarWidgetLayer *mainMenu;
+
+void myGoOn()
 {
+	StarCore::unregisterLayer(mainMenu);
+	delete mainMenu;
+
+	resize(800, 600);
+	glutReshapeFunc(resize);
+	glutPassiveMotionFunc(mouse);
+	glutMotionFunc(mouse);
+	glutMouseFunc(click);
+
+	layer[0] = new StarObjectLayer(Coordinate2d(800, 600));
+	layer[1] = new StarObjectLayer(Coordinate2d(800, 600));
+	layer[2] = new StarObjectLayer(Coordinate2d(800, 600));
+	StarCore::registerLayerBackground(layer[0]);
+	StarCore::registerLayerBackground(layer[1]);
+	StarCore::registerLayerBackground(layer[2]);
+	init();
+}
+
+void myExit()
+{
+	exit(0);
 }
 
 int main(int argc, char** argv)
@@ -150,18 +175,17 @@ int main(int argc, char** argv)
 	puts("THIS IS STARLIAAAAAAAAAAAAA!");
 	puts("THIS IS SEGFAUUUUUUUUUUUULT!");
 
-	backLayer = new StarLayer(Coordinate2d(800, 600));
-	frontLayer = new StarLayer(Coordinate2d(800, 600));
-	StarCore::registerLayerForeground(backLayer);
-	StarCore::registerLayerForeground(frontLayer);
-	init();
+	mainMenu = new StarWidgetLayer(Coordinate2d(100, 100));
+
+	StarCore::registerLayerForeground(mainMenu);
+	mainMenu->registerObject(new StarLabel("Welcome to the awesome menu", Coordinate2d(20, 90), Coordinate2d(80, 80), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
+        mainMenu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,0,1), -1, StarLabel::STATIC, StarLabel::CENTER, myGoOn));
+	mainMenu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 40), Coordinate2d(80, 30), 4, Color3d(1,0,0), -1, StarLabel::STATIC, StarLabel::CENTER, myExit));
+	mainMenu->registerObject(new StarLabel("DO NOT RESIZE BEFORE HITTING PLAY", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(1,1,0), -1, StarLabel::STATIC, StarLabel::CENTER));
+
 
 	StarCore::init("HE Training Grounds 2 not yet v1.00-beta1", SIZEX, SIZEY);
 
-	glutPassiveMotionFunc(mouse);
-	glutMotionFunc(mouse);
-	glutMouseFunc(click);
-	glutReshapeFunc(resize);
 
 	StarCore::loop();
 

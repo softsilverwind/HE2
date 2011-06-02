@@ -72,7 +72,7 @@ Rain::Rain(Coordinate2d topleft, Coordinate2d botright, int number, double veloc
 		particleList.push_back(temp);
 	}
 
-	nextThunder = randomi(500,5000);
+	nextThunder = randomi(50,500);
 }
 
 bool Rain::recalc()
@@ -92,8 +92,8 @@ bool Rain::recalc()
 
 	if (!nextThunder)
 	{
-		nextThunder = randomi(500,5000);
-		backLayer->registerObject(new Thunder(Coordinate2d(randomi(0,SIZEX), SIZEY), Coordinate2d(SIZEX/10, SIZEY/3), randomi(500,1000)));
+		nextThunder = randomi(50,500);
+		layer[1]->registerObject(new Thunder(Coordinate2d(randomi(0,SIZEX), SIZEY), Coordinate2d(SIZEX/10, SIZEY/3), randomi(50,100)));
 	}
 
 	return true;
