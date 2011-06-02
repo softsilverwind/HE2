@@ -1,4 +1,4 @@
-#include <GL/glut.h>
+#include <GL/gl.h>
 #include <climits>
 #include <starlia.h>
 #include "globals.h"

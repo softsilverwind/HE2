@@ -1,6 +1,5 @@
-#include <GL/glut.h>
+#include <GL/gl.h>
 #include <cmath>
-#include <stdio.h>
 #include <starlia.h>
 #include "dud.h"
 #include "globals.h"
@@ -61,7 +60,6 @@ bool Dud::recalc()
 
 void Dud::draw()
 {
-
 	glPushMatrix();
 	glTranslated(position.x, position.y, 0);
 	glScaled(radius, radius, 1);

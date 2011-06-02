@@ -33,25 +33,34 @@ fitted a new display engine to all the animations
 fitted a new particle engine
 added rain
 
+--> 0.5 : 1.00-beta1 codename You can reach the stars:
+
+1st public release!
+HE2 has been fully ported to Starlia, no overrides. This means that Starlia
+must be installed before compiling.
+HE2 now uses the widget scheme of Starlia, which is more powerful than nothing.
+Since Starlia is for now toy game engine (not even alpha yet), and since many 
+API/ABI breaks are bound to happen, see HE2 as the best benchmark for Starlia,
+and not something that is going to be the way it is now :)
+
+added main menu
+added labels, rendering command line prints useless
+added in-game menu
+now cannon fires at the point clicked, not at the last pointed position
+
+various bugfixes and polishes
+
+
 
 TODO:
---- This sections exists as a reminder to myself, and not as a list of definite future features, so expect it to be a little illegible ---
-
---> next release: (0.5 aka 1.00-beta1)
-+ move collision detection to dud (mandatory!) (DONE!)
-+ should point laser when clicking (easy :) ) (DONE!)
-+ port HE2 to Starlia (almost theeereeee!)
--+ main menu ( :( )
--+ render the score/angle/velocity inline in the window, but not with a label ( :( )
-+ 1st public release! ( :D )
-- more realistic explosions depending on velocity ( -.- )
+--- This section exists as a reminder to myself, and not as a list of definite future features, so expect it to be a little illegible ---
 
 --> someday (but before 1.00 final is released):
-+ polish the particle engine
-+ better collision detection, using a two point linear interpolation scheme, handled by D_engine (or Ph_engine :P)
++ polish the particle engine, maybe add it to Starlia
 - HE1 options - Blood (particles), Ground indentation, Wind (Global Variable?)
 - people dismemberment
 - kill by hitting ground beside
+- more realistic explosions depending on velocity
 
 --> someday (probably after 1.00 is released, but not sure)
 - reintroduce openAL, add explosion and thunder sound, add voice of people saying bad words :)
