@@ -1,6 +1,9 @@
 #include <GL/gl.h>
 #include <cmath>
 #include <starlia.h>
+
+#include <SDL/SDL_mixer.h>
+
 #include "dud.h"
 #include "globals.h"
 #include "p_engine.h"
@@ -40,18 +43,21 @@ bool Dud::recalc()
 	else if (ground->collides(position))
 	{
 		layer[1]->registerObject(new P_engine(Coordinate2d(position.x, ground->getYofX(position.x)),PARTICLES,TIME,SPEED,Color3d(1,0.3,0),P_engine::CHAMPAGNE), changePlayer);
+		Mix_PlayChannel(-1, explosion, 0);
 		return false;
 	}
 	else if (player[0]->collides(position))
 	{
 		layer[1]->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
 		++score[1];
+		Mix_PlayChannel(-1, explosion, 0);
 		return false;
 	}
 	else if (player[1]->collides(position))
 	{
 		layer[1]->registerObject(new P_engine(position,PARTICLES,TIME,SPEED,Color3d(1,0,0),P_engine::CHAMPAGNE), reInit);
 		++score[0];
+		Mix_PlayChannel(-1, explosion, 0);
 		return false;
 	}
 

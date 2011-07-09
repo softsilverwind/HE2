@@ -5,7 +5,7 @@ CXXFLAGS=-Wall -g -O3
 all: he2
 
 he2: ground.o background.o person.o dud.o particle.o p_engine.o main.o
-	$(CC) $(CFLAGS) -o $@ $^ -lglut -lGLU -lGL -lstarlia
+	$(CC) $(CFLAGS) -o $@ $^ -lSDL -lSDL_mixer -lGLU -lGL -lstarlia
 
 ground.o: ground.h
 background.o: background.h

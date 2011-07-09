@@ -2,6 +2,9 @@
 #include <sstream>
 #include <cstdlib>
 #include <starlia.h>
+
+#include <SDL/SDL_mixer.h>
+
 #include "structs.h"
 #include "background.h"
 #include "ground.h"
@@ -27,6 +30,7 @@ unsigned int currPlayer;
 Ground *ground;
 StarObjectLayer *layer[3];
 StarWidgetLayer *canvas, *widgets, *menu;
+Mix_Chunk *explosion;
 
 Person *player[2];
 bool firing;
@@ -184,6 +188,25 @@ void myGoOn(Coordinate2d pos)
 	StarCore::registerLayerBackground(layer[0]);
 	StarCore::registerLayerBackground(layer[1]);
 	StarCore::registerLayerBackground(layer[2]);
+
+	/* begin starlia integration block */
+
+	int audio_rate = 44100;
+	Uint16 audio_format = AUDIO_S16SYS;
+	int audio_channels = 2;
+	int audio_buffers = 4096;
+	 
+	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) {
+		cerr << "Unable to initialize audio" << endl;
+		exit(1);
+	}
+
+	Mix_Music *music = Mix_LoadMUS("desert fight loop.ogg");
+	explosion = Mix_LoadWAV("explosion.wav");
+	Mix_PlayMusic(music, -1);
+
+	/* end starlia integration block */
+
 	init();
 }
 
