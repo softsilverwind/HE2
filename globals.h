@@ -2,6 +2,9 @@
 #define __GLOBALS_H__
 
 #include <starlia.h>
+
+#include <SDL/SDL_mixer.h>
+
 #include "ground.h"
 #include "person.h"
 
