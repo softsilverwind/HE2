@@ -1,7 +1,7 @@
 #include <list>
 #include <cmath>
 #include <climits>
-#include <GL/glut.h>
+#include <GL/gl.h>
 #include <starlia.h>
 #include "p_engine.h"
 #include "particle.h"
