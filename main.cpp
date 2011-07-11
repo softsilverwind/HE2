@@ -28,7 +28,7 @@ Background *background;
 unsigned int score[2];
 unsigned int currPlayer;
 Ground *ground;
-StarObjectLayer *layer[3];
+Star2dObjectLayer *layer[3];
 StarWidgetLayer *canvas, *widgets, *menu;
 Mix_Chunk *explosion;
 
@@ -182,9 +182,9 @@ void myGoOn(Coordinate2d pos)
 	StarCore::registerLayerForeground(canvas);
 	StarCore::registerLayerForeground(widgets);
 
-	layer[0] = new StarObjectLayer(Coordinate2d(800, 600));
-	layer[1] = new StarObjectLayer(Coordinate2d(800, 600));
-	layer[2] = new StarObjectLayer(Coordinate2d(800, 600));
+	layer[0] = new Star2dObjectLayer(Coordinate2d(800, 600));
+	layer[1] = new Star2dObjectLayer(Coordinate2d(800, 600));
+	layer[2] = new Star2dObjectLayer(Coordinate2d(800, 600));
 	StarCore::registerLayerBackground(layer[0]);
 	StarCore::registerLayerBackground(layer[1]);
 	StarCore::registerLayerBackground(layer[2]);
@@ -212,7 +212,8 @@ void myGoOn(Coordinate2d pos)
 
 int main(int argc, char** argv)
 {
-	menu = new StarWidgetLayer(Coordinate2d(100, 100), true);
+	menu = new StarWidgetLayer(Coordinate2d(100, 100));
+	menu->setBlockFallThrough(true);
 
 	StarCore::registerLayerForeground(menu);
 	menu->registerObject(new StarLabel("Welcome to the HE Training Grounds", Coordinate2d(20, 90), Coordinate2d(80, 70), 4, Color3d(1,1,0), StarLabel::CENTER));
