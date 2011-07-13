@@ -189,23 +189,9 @@ void myGoOn(Coordinate2d pos)
 	StarCore::registerLayerBackground(layer[1]);
 	StarCore::registerLayerBackground(layer[2]);
 
-	/* begin starlia integration block */
-
-	int audio_rate = 44100;
-	Uint16 audio_format = AUDIO_S16SYS;
-	int audio_channels = 2;
-	int audio_buffers = 4096;
-	 
-	if(Mix_OpenAudio(audio_rate, audio_format, audio_channels, audio_buffers) != 0) {
-		cerr << "Unable to initialize audio" << endl;
-		exit(1);
-	}
-
-	Mix_Music *music = Mix_LoadMUS("desert fight loop.ogg");
-	explosion = Mix_LoadWAV("explosion.wav");
-	Mix_PlayMusic(music, -1);
-
-	/* end starlia integration block */
+	StarSound::loadMusic("desert fight", "desert fight loop.ogg");
+	StarSound::loadSound("explosion", "explosion.wav");
+	StarSound::playMusic("desert fight", -1);
 
 	init();
 }
