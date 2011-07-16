@@ -3,8 +3,6 @@
 
 #include <starlia.h>
 
-#include <SDL/SDL_mixer.h>
-
 #include "ground.h"
 #include "person.h"
 
@@ -21,7 +19,6 @@ extern Star2dObjectLayer *layer[3];
 extern Ground *ground;
 extern Person *player[2];
 extern unsigned int score[2];
-extern Mix_Chunk *explosion;
 
 void changePlayer();
 void reInit();

@@ -2,8 +2,6 @@
 #include <cmath>
 #include <starlia.h>
 
-#include <SDL/SDL_mixer.h>
-
 #include "dud.h"
 #include "globals.h"
 #include "p_engine.h"

@@ -3,8 +3,6 @@
 #include <cstdlib>
 #include <starlia.h>
 
-#include <SDL/SDL_mixer.h>
-
 #include "structs.h"
 #include "background.h"
 #include "ground.h"
@@ -30,7 +28,6 @@ unsigned int currPlayer;
 Ground *ground;
 Star2dObjectLayer *layer[3];
 StarWidgetLayer *canvas, *widgets, *menu;
-Mix_Chunk *explosion;
 
 Person *player[2];
 bool firing;
