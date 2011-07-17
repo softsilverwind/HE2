@@ -15,13 +15,6 @@ Dud::Dud(Coordinate2d position, Coordinate2d velocity, double radius, Color3d co
 {
 }
 
-Dud::Dud(Coordinate2d position, Coordinate2dpolar velocity, double radius, Color3d color)
-	: position(position), radius(radius), color(color)
-{
-	this->velocity.x = velocity.r * cos(velocity.a);
-	this->velocity.y = velocity.r * sin(velocity.a);
-}
-
 Coordinate2d Dud::getPosition()
 {
 	return position;

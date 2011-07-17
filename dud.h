@@ -15,7 +15,6 @@ class Dud : public StarObject
 
 	public:
 		Dud(Coordinate2d position, Coordinate2d velocity, double radius, Color3d color);
-		Dud(Coordinate2d position, Coordinate2dpolar velocity, double radius, Color3d color);
 
 		Coordinate2d getPosition();
 		bool recalc();
