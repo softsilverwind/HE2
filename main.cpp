@@ -123,14 +123,14 @@ void init()
 	firing = false;
 }
 
-void mouse(Coordinate2d pos)
+void mouse(StarWidget *_, Coordinate2d pos)
 {
 	pos.x *= SIZEX;
 	pos.y *= SIZEY;
 	player[currPlayer]->pointWeapon(pos.x,SIZEY - pos.y);
 }
 
-void click(Coordinate2d pos)
+void click(StarWidget *_, Coordinate2d pos)
 {
 	pos.x *= SIZEX;
 	pos.y *= SIZEY;
@@ -144,22 +144,22 @@ void click(Coordinate2d pos)
 	}
 }
 
-void myMenu(Coordinate2d pos)
+void myMenu(StarWidget *_, Coordinate2d pos)
 {
 	StarCore::registerLayerForeground(menu);
 }
 
-void myGoOn2(Coordinate2d pos)
+void myGoOn2(StarWidget *_, Coordinate2d pos)
 {
 	StarCore::unregisterLayer(menu);
 }
 
-void myExit(Coordinate2d pos)
+void myExit(StarWidget *_, Coordinate2d pos)
 {
 	exit(0);
 }
 
-void myGoOn(Coordinate2d pos)
+void myGoOn(StarWidget *_, Coordinate2d pos)
 {
 	StarCore::unregisterLayer(menu);
 	menu->clearLayer();
