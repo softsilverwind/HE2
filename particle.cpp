@@ -9,7 +9,7 @@
 
 using namespace Starlia;
 
-Particle::Particle(Coordinate2d position, Coordinate2d velocity, Coordinate2d acceleration, Color3d color, int life)
+Particle::Particle(Coordinate2d position, Coordinate2d velocity, Coordinate2d acceleration, Color3f color, int life)
 	: position(position), velocity(velocity), acceleration(acceleration), color(color), life(life), start(position)
 {
 	hue = randomdUp(1,4);
@@ -32,7 +32,7 @@ bool Particle::recalc()
 
 void Particle::draw()
 {
-	glColor3d(color.r * hue, color.g * hue, color.b * hue);
+	glColor3f(color.r * hue, color.g * hue, color.b * hue);
 
 	glBegin(GL_TRIANGLE_FAN);
 	glVertex2d(position.x, position.y + SIZE);

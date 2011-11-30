@@ -12,7 +12,7 @@ using namespace Starlia;
 
 using namespace std;
 
-P_engine::P_engine(Coordinate2d position, int number, int time, double maxvel, Color3d color, Effect effect)
+P_engine::P_engine(Coordinate2d position, int number, int time, double maxvel, Color3f color, Effect effect)
 	: position(position)
 {
 	double tempvel, tempangle;
@@ -67,7 +67,7 @@ Rain::Rain(Coordinate2d topleft, Coordinate2d botright, int number, double veloc
 	for (i = 0; i < number; ++i)
 	{
 		Coordinate2d position(randomi(topleft.x, botright.x), randomi(topleft.y, topleft.y + (topleft.y - botright.y)));
-		Particle temp(position, Coordinate2d(0, -velocity), Coordinate2d(0,0), Color3d(0,0,1), INT_MAX);
+		Particle temp(position, Coordinate2d(0, -velocity), Coordinate2d(0,0), Color3f(0,0,1), INT_MAX);
 		particleList.push_back(temp);
 	}
 
@@ -82,7 +82,7 @@ bool Rain::recalc()
 		if (!it->recalc())
 		{
 			Coordinate2d position(randomi(topleft.x, botright.x), SIZEY);
-			*it = Particle(position, Coordinate2d(0, -velocity), Coordinate2d(0,0), Color3d(0,0,1), INT_MAX);
+			*it = Particle(position, Coordinate2d(0, -velocity), Coordinate2d(0,0), Color3f(0,0,1), INT_MAX);
 		}
 	}
 
@@ -137,5 +137,5 @@ bool Rain::Thunder::recalc()
 void Rain::Thunder::draw()
 {
 	for(int i = 0; i < (int) vertices.size() - 1; ++i)
-		Line::draw(vertices[i], vertices[i+1], Color3d(1,1,1));
+		Line::draw(vertices[i], vertices[i+1], Color3f(1,1,1));
 }

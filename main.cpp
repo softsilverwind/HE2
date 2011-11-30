@@ -74,7 +74,7 @@ void reInit()
 
 void init()
 {
-	Color3d backUp, backDown, groundCol, personCol;
+	Color3f backUp, backDown, groundCol, personCol;
 
 	timeOfDay = (timeOfDayType) randomi(0,4);
 	rain = NULL;
@@ -82,30 +82,30 @@ void init()
 	switch (timeOfDay)
 	{
 		case morning:
-			backUp = Color3d(0, 0, randomdUp(1,4));
-			backDown = Color3d(randomdUp(1,4) - 0.25, 0.25, 0.25);
-			groundCol = Color3d(1,0.6,0.4);
-			personCol = Color3d(0,0,0);
+			backUp = Color3f(0, 0, randomdUp(1,4));
+			backDown = Color3f(randomdUp(1,4) - 0.25, 0.25, 0.25);
+			groundCol = Color3f(1,0.6,0.4);
+			personCol = Color3f(0,0,0);
 			break;
 		case noon:
-			backDown = backUp = Color3d(0, 0, randomdUp(1,20));
-			groundCol = Color3d(1,0.6,0.4);
-			personCol = Color3d(0,0,0);
+			backDown = backUp = Color3f(0, 0, randomdUp(1,20));
+			groundCol = Color3f(1,0.6,0.4);
+			personCol = Color3f(0,0,0);
 			break;
 		case afternoon:
-			backUp = Color3d(0, 0, randomdUp(1,2));
-			backDown = Color3d(randomdUp(1,4), 0.25, 0.25);
-			groundCol = Color3d(1,0.6,0.4);
-			personCol = Color3d(0,0,0);
+			backUp = Color3f(0, 0, randomdUp(1,2));
+			backDown = Color3f(randomdUp(1,4), 0.25, 0.25);
+			groundCol = Color3f(1,0.6,0.4);
+			personCol = Color3f(0,0,0);
 			break;
 		case rainy:
 			rain = new Rain(Coordinate2d(0, SIZEY), Coordinate2d(SIZEX, 0), 100, 5, true);
 			layer[1]->registerObject(rain);
 			/* nobreak */
 		case night:
-			backDown = backUp = Color3d(0, 0, randomdDown(1,4));
-			groundCol = Color3d(1,0.6,0.4);
-			personCol = Color3d(0.5,0.5,0.5);
+			backDown = backUp = Color3f(0, 0, randomdDown(1,4));
+			groundCol = Color3f(1,0.6,0.4);
+			personCol = Color3f(0.5,0.5,0.5);
 			break;
 		default:
 			cerr << "We should not have come here, heh" << endl;
@@ -163,18 +163,18 @@ void myGoOn(StarWidget *_, Coordinate2d pos)
 {
 	StarCore::unregisterLayer(menu);
 	menu->clearLayer();
-        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,1,0), StarLabel::CENTER, myGoOn2));
-	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(0,1,0), StarLabel::CENTER, myExit));
+        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3f(0,1,0), StarLabel::CENTER, myGoOn2));
+	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3f(0,1,0), StarLabel::CENTER, myExit));
 
 	widgets = new StarWidgetLayer(Coordinate2d(100, 100));
 	canvas = new StarWidgetLayer(Coordinate2d(100, 100));
 	canvas->registerObject(new StarWidget(Coordinate2d(0,100), Coordinate2d(100, 0), click, mouse));
-	widgets->registerObject(new StarLabel("MENU", Coordinate2d(90, 4), Coordinate2d(100, 0), 3, Color3d(0,0,1), StarLabel::CENTER, myMenu));
+	widgets->registerObject(new StarLabel("MENU", Coordinate2d(90, 4), Coordinate2d(100, 0), 3, Color3f(0,0,1), StarLabel::CENTER, myMenu));
 
-	widgets->registerObject(new StarLabel("Player 1:", Coordinate2d(2, 98), Coordinate2d(30, 94), 3, Color3d(0,1,0), StarLabel::RIGHT));
-	widgets->registerObject(new StarLabel("Player 2:", Coordinate2d(2, 94), Coordinate2d(30, 90), 3, Color3d(1,0,0), StarLabel::RIGHT));
-	widgets->registerObject(scoreLabel[0] = new StarLabel("0", Coordinate2d(32, 98), Coordinate2d(60, 94), 3, Color3d(0,1,0), StarLabel::LEFT));
-	widgets->registerObject(scoreLabel[1] = new StarLabel("0", Coordinate2d(32, 94), Coordinate2d(60, 90), 3, Color3d(1,0,0), StarLabel::LEFT));
+	widgets->registerObject(new StarLabel("Player 1:", Coordinate2d(2, 98), Coordinate2d(30, 94), 3, Color3f(0,1,0), StarLabel::RIGHT));
+	widgets->registerObject(new StarLabel("Player 2:", Coordinate2d(2, 94), Coordinate2d(30, 90), 3, Color3f(1,0,0), StarLabel::RIGHT));
+	widgets->registerObject(scoreLabel[0] = new StarLabel("0", Coordinate2d(32, 98), Coordinate2d(60, 94), 3, Color3f(0,1,0), StarLabel::LEFT));
+	widgets->registerObject(scoreLabel[1] = new StarLabel("0", Coordinate2d(32, 94), Coordinate2d(60, 90), 3, Color3f(1,0,0), StarLabel::LEFT));
 
 	StarCore::registerLayerForeground(canvas);
 	StarCore::registerLayerForeground(widgets);
@@ -199,9 +199,9 @@ int main(int argc, char** argv)
 	menu->setBlockFallThrough(true);
 
 	StarCore::registerLayerForeground(menu);
-	menu->registerObject(new StarLabel("Welcome to the HE Training Grounds", Coordinate2d(20, 90), Coordinate2d(80, 70), 4, Color3d(1,1,0), StarLabel::CENTER));
-        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3d(0,1,0), StarLabel::CENTER, myGoOn));
-	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3d(0,1,0), StarLabel::CENTER, myExit));
+	menu->registerObject(new StarLabel("Welcome to the HE Training Grounds", Coordinate2d(20, 90), Coordinate2d(80, 70), 4, Color3f(1,1,0), StarLabel::CENTER));
+        menu->registerObject(new StarLabel("PLAY", Coordinate2d(20, 60), Coordinate2d(80, 50), 4, Color3f(0,1,0), StarLabel::CENTER, myGoOn));
+	menu->registerObject(new StarLabel("EXIT", Coordinate2d(20, 20), Coordinate2d(80, 10), 4, Color3f(0,1,0), StarLabel::CENTER, myExit));
 
 
 	StarCore::init("HE Training Grounds 2 v1.00-beta1", SIZEX, SIZEY);

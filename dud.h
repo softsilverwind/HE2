@@ -11,10 +11,10 @@ class Dud : public StarObject
 		Coordinate2d position;
 		Coordinate2d velocity;
 		double radius;
-		Color3d color;
+		Color3f color;
 
 	public:
-		Dud(Coordinate2d position, Coordinate2d velocity, double radius, Color3d color);
+		Dud(Coordinate2d position, Coordinate2d velocity, double radius, Color3f color);
 
 		Coordinate2d getPosition();
 		bool recalc();

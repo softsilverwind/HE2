@@ -21,7 +21,7 @@ class P_engine : public StarObject
 		Coordinate2d position;
 		
 	public:
-		P_engine(Coordinate2d position, int number, int time, double maxvel, Color3d color, Effect effect);
+		P_engine(Coordinate2d position, int number, int time, double maxvel, Color3f color, Effect effect);
 
 		void explode();
 

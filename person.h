@@ -12,14 +12,14 @@ class Person : public StarObject
 		typedef struct BodyPart
 		{
 			Coordinate2d start, end;
-			Color3d color;
-			BodyPart(Coordinate2d s, Coordinate2d e, Color3d c) : start(s), end(e), color(c) {};
+			Color3f color;
+			BodyPart(Coordinate2d s, Coordinate2d e, Color3f c) : start(s), end(e), color(c) {};
 		}
 		BodyPart;
 
 		Coordinate2d position;
 		double radius;
-		Color3d color;
+		Color3f color;
 
 		BodyPart body, rhand, lhand, rleg, lleg;
 		BodyPart weapon, laser;
@@ -27,7 +27,7 @@ class Person : public StarObject
 		double velocity, angle;
 
 	public:
-		Person(double x, Color3d color, Ground *ground);
+		Person(double x, Color3f color, Ground *ground);
 
 		void pointWeapon(double x, double y);
 		Dud *fire();

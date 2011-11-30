@@ -6,7 +6,7 @@
 
 using namespace Starlia;
 
-Person::Person(double x, Color3d color, Ground *ground)
+Person::Person(double x, Color3f color, Ground *ground)
 	: position(x, ground->getYofX(x) + 20),
 	radius(5),
 	color(color),
@@ -16,7 +16,7 @@ Person::Person(double x, Color3d color, Ground *ground)
 	rleg(Coordinate2d(position.x, position.y - 15), Coordinate2d(position.x + 5, ground->getYofX(position.x + 5)), color),
 	lleg(Coordinate2d(position.x, position.y - 15), Coordinate2d(position.x - 5, ground->getYofX(position.x - 5)), color),
 	weapon(Coordinate2d(position.x, position.y - 10), Coordinate2d(position.x, position.y + 10), color),
-	laser(Coordinate2d(position.x, position.y - 10), Coordinate2d(position.x, position.y - 10), Color3d(0,1,0))
+	laser(Coordinate2d(position.x, position.y - 10), Coordinate2d(position.x, position.y - 10), Color3f(0,1,0))
 {
 }
 
@@ -33,7 +33,7 @@ void Person::draw()
 	Line::draw(lhand.start, lhand.end, color);
 	Line::draw(rleg.start, rleg.end, color);
 	Line::draw(lleg.start, lleg.end, color);
-	Line::draw(laser.start, laser.end, Color3d(0,1,0));
+	Line::draw(laser.start, laser.end, Color3f(0,1,0));
 	Line::draw(weapon.start, weapon.end, color, 3);
 }
 

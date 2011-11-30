@@ -12,13 +12,13 @@ class Particle
 		Coordinate2d position;
 		Coordinate2d velocity;
 		Coordinate2d acceleration;
-		Color3d color;
+		Color3f color;
 		double life;
 		Coordinate2d start;
 		double hue;
 	
 	public:
-		Particle(Coordinate2d position, Coordinate2d velocity, Coordinate2d acceleration, Color3d color, int life);
+		Particle(Coordinate2d position, Coordinate2d velocity, Coordinate2d acceleration, Color3f color, int life);
 
 		bool recalc();
 		void draw();

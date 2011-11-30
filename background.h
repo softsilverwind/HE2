@@ -8,10 +8,10 @@ using namespace Starlia;
 class Background : public StarObject
 {
 	private:
-		Color3d colorh, colorl;
+		Color3f colorh, colorl;
 	
 	public:
-		Background(Color3d high, Color3d low);
+		Background(Color3f high, Color3f low);
 
 		void draw();
 };

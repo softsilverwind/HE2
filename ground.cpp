@@ -5,7 +5,7 @@
 
 using namespace Starlia;
 
-Ground::Ground(Color3d color)
+Ground::Ground(Color3f color)
 	: color(color)
 {
 	points[GR_2] = 100;
