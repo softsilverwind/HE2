@@ -1,6 +1,6 @@
 CC=g++
 CXX=g++
-CXXFLAGS=-Wall -g -O3
+CXXFLAGS=-Wall -O3 -g -std=c++0x
 
 all: he2
 
