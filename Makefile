@@ -1,4 +1,3 @@
-CC=g++
 CXX=g++
 CXXFLAGS=-Wall -O3 -g -std=c++0x
 
@@ -13,7 +12,6 @@ person.o: person.h
 dud.o: dud.h
 particle.o: particle.h
 p_engine.o: p_engine.h
-serror.o: serror.h
 
 clean:
 	$(RM) *.o
